@@ -20,7 +20,10 @@ private:
   }
 
 public:
-  Book() {};
+  Book() {
+    this->mss = this->tenSach = this->tenTacGia = "";
+    this->soTrang = this->namXuatBan = 0;
+  };
   ~Book() {};
 
   void setTenSach(string tenSach) { this->tenSach = tenSach; }
