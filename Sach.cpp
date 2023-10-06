@@ -1,6 +1,7 @@
+#pragma once
 #include "lib.cpp"
 
-class Book
+class Sach
 {
 private:
   string mss;
@@ -9,8 +10,8 @@ private:
   int soTrang;
   int namXuatBan;
 
-  Book copy() {
-    Book book;
+  Sach clone() {
+    Sach book;
     book.setMSS(this->getMSS());
     book.setTenSach(this->getTenSach());
     book.setTenTacGia(this->getTenTacGia());
@@ -20,11 +21,11 @@ private:
   }
 
 public:
-  Book() {
+  Sach() {
     this->mss = this->tenSach = this->tenTacGia = "";
     this->soTrang = this->namXuatBan = 0;
   };
-  ~Book() {};
+  ~Sach() {};
 
   void setTenSach(string tenSach) { this->tenSach = tenSach; }
   void setMSS(string mss) { this->mss = mss; }
@@ -43,8 +44,8 @@ public:
   }
 
 
-  vector<Book> dsBook(fstream& file) {
-    vector<Book> res;
+  vector<Sach> dsSach(fstream& file) {
+    vector<Sach> res;
     while (!file.eof()) {
       string st, nxb;
       getline(file, this->mss);
@@ -55,8 +56,7 @@ public:
       std::stringstream ss1(st), ss2(nxb);
       ss1 >> this->soTrang;
       ss2 >> this->namXuatBan;
-      // file >> this->soTrang;
-      res.push_back(this->copy());
+      res.push_back(this->clone());
     }
 
     return res;

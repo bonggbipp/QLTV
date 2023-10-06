@@ -1,17 +1,25 @@
+#pragma once
 #include "dangNhap.cpp"
+#include "Sach.cpp"
 /**
  * Nhan vien
  */
 class Admin : public DangNhap {
 private:
-  string name;
+  string ten;
 public:
   Admin() {}
   ~Admin() {}
+
+  void setTen(string ten) { this->ten = ten }
+  void getTen() { return this->ten; }
+
+  void luu(fstream& f) {
+    f << DangNhap::GetId() << endl << this->ten << endl;
+  }
+
   void AdminDangNhap(vector<DangNhap> acc) {
     string u, p;
-    // ifstream fi;
-    // fi.open("./db/user.txt", ios::in | ios::out);
     cout << "\n=========================== DANG NHAP ===========================\n";
     cout << setw(30) << right << "Username: ";
     getline(cin, u);
@@ -53,10 +61,62 @@ public:
     system("cls");
   }
 
+  void updateThongTin() {
+    int chon;
+    do {
+      system("cls");
+      cout << "\n=========================== CAP NHAT THONG TIN ===========================\n";
+      cout << "1. Thay doi ten\n";
+      cout << "2. Thay doi tuoi\n";
+      cout << "3. Thay doi dia chi\n";
+      cout << "Lua chon cua ban la: ";
+      cin >> chon;
+      if (chon < 1 || chon > 3) {
+        cout << "vui long chon lai chuc nang.\n";
+        system("pause");
+      }
+    } while (chon < 1 || chon > 3);
+
+    switch (chon) {
+    case 1:
+      cout << "\n=========================== CAP NHAT TEN ===========================\n";
+      cout << "Ten cua ban: " << this->ten << endl;
+      cout << "Nhap Ten moi: ";
+      cin.ignore();
+      getline(cin, this->ten);
+      break;
+    case 2:
+      cout << "\n=========================== CAP NHAT TUOI ===========================\n";
+      cout << "Tuoi cua ban: " << this->tuoi << endl;
+      cout << "Nhap Tuoi moi: ";
+      cin >> this->tuoi;
+      break;
+    case 3:
+      cout << "\n=========================== CAP NHAT DIA CHI ===========================\n";
+      cout << "Dia chi cua ban: " << this->diaChi << endl;
+      cout << "Nhap dia chi moi: ";
+      cin.ignore();
+      getline(cin, this->diaChi);
+      break;
+    }
+    cout << "Ban da thay doi thanh cong";
+    system("pause");
+    system("cls");
+  }
+
   void layThongTinSach() {
 
   }
-  void themSach() {
+  void themSach(vector<Sach> sachs) {
 
   }
+  void updateThongTinSach(vector<Sach> sachs) {
+
+  }
+
+  void themDocGia() {
+
+  }
+
+  void thongKe() { }
 };
