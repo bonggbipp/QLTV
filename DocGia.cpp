@@ -129,7 +129,7 @@ public:
    * @param f luồng đọc ghi của file docGia.txt
    */
   void luu(fstream& f) {
-    f << DangNhap::GetId() << endl << this->ten << endl << this->diaChi << endl << this->tuoi << endl << this->idTheMuon << endl;
+    f << DangNhap::GetId() << endl << this->ten << endl << this->diaChi << endl << this->tuoi << endl << this->idTheMuon;
   }
 
   friend std::ostream& operator<<(std::ostream& os, const DocGia& o) {

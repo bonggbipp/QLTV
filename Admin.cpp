@@ -79,7 +79,7 @@ public:
    * @param f luong doc ghi cua file admin.txt
    */
   void luu(fstream& f) {
-    f << DangNhap::GetId() << endl << this->ten << endl;
+    f << DangNhap::GetId() << endl << this->ten;
   }
   /**
    * @brief hàm tĩnh để lấy danh sách các Admin có trong hệ thống.
@@ -88,6 +88,7 @@ public:
    * @return vector<Admin> Danh sách động các Admin có trong hệ thống.
    */
   static vector<Admin> dsAdmin(fstream& f) {
+
     vector<Admin> res;
     while (!f.eof()) {
       Admin tg;
@@ -104,11 +105,13 @@ public:
    * @brief Admin đăng nhập
    *
    * @param acc danh sách các account có trong hệ thống
+   * @param ads danh sách các account admin có trong hệ thống
    * @return int id của account đó nếu có | -1 nếu không đăng nhập thanh công.
    */
-  int AdminDangNhap(vector<DangNhap> acc) {
+  int AdminDangNhap(const vector<DangNhap> acc, const vector<Admin> ads) {
     cin.ignore();
-    string u, p, m;
+    string u, p;
+    int m;
     cout << "\n=========================== DANG NHAP ===========================\n";
     cout << setw(30) << right << "Username: ";
     getline(cin, u);
@@ -120,15 +123,32 @@ public:
     for (int i = 0;i < acc.size();i++) {
       /**Hàm strcmp() là một hàm dùng để so sánh hai chuỗi. Hàm này sẽ so sánh từng ký tự của hai chuỗi từ đầu đến cuối. Nếu hai chuỗi giống nhau, hàm sẽ trả về giá trị 0. Nếu chuỗi đầu tiên lớn hơn chuỗi thứ hai, hàm sẽ trả về giá trị âm. Nếu chuỗi đầu tiên nhỏ hơn chuỗi thứ hai, hàm sẽ trả về giá trị dương. */
       if (strcmp(acc.at(i).getUsername().c_str(), u.c_str()) == 0 && strcmp(acc.at(i).getPassword().c_str(), p.c_str()) == 0) {
-        run = false;
-        m = acc.at(i).GetId();
+        for (Admin a : ads) {
+          if (a.GetId() == acc[i].GetId()) {
+            run = false;
+            m = acc.at(i).GetId();
+            this->setUsername(u);
+            this->setPassword(p);
+            this->setId(acc.at(i).GetId());
+            this->setTen(a.getTen());
+            break;
+          }
+        }
       }
     }
     while (run) {
       for (int i = 0;i < acc.size();i++) {
         if (strcmp(acc.at(i).getUsername().c_str(), u.c_str()) == 0 && strcmp(acc.at(i).getPassword().c_str(), p.c_str()) == 0) {
-          run = false;
-          break;
+          for (Admin a : ads) {
+            if (a.GetId() == acc[i].GetId()) {
+              run = false;this->setUsername(u);
+              this->setPassword(p);
+              this->setId(acc.at(i).GetId());
+              this->setTen(a.getTen());
+              break;
+            }
+          }
+
         }
       }
       if (!run) break;
@@ -144,13 +164,11 @@ public:
       cout << setw(30) << right << "Password: ";
       getline(cin, p);
     }
-    this->setUsername(u);
-    this->setPassword(p);
-    this->setId(convertToInt(m));
+
     cout << "Dang nhap thanh cong" << endl;
     system("pause");
     system("cls");
-    return convertToInt(m);
+    return m;
   }
   /**
    * @brief cập nhật thông tin cho Admin hiện tại

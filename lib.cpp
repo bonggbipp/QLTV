@@ -4,6 +4,11 @@
 #include <sstream>
 using namespace std;
 
+void reset(fstream* f[], size_t n) {
+  for (size_t i = 0; i < n; i++) {
+    f[i]->seekg(0, ios::beg);
+  }
+}
 bool operator==(const string& str, const string& sub_str) {
   return str.find(sub_str) != std::string::npos;
 }
