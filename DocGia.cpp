@@ -2,27 +2,37 @@
 #include "dangNhap.cpp"
 /**
  * doc gia
+ * class kiem soat doc gia.
+ * thuc hien cac chuc nang maf doc gia co the lam.
  */
-class DocGia : public DangNhap
-{
+class DocGia : public DangNhap {
 private:
   string ten;
   string diaChi;
   int tuoi;
+  int idTheMuon;
 public:
   DocGia() {};
   ~DocGia() {};
-
+  /* setter/getter */
   void setTen(string ten) { this->ten = ten; }
   void setDiaChi(string diaChi) { this->diaChi = diaChi; }
   void setTuoi(int tuoi) { this->tuoi = tuoi; }
+  void setIdTheMuon(int idTheMuon) { this->idTheMuon = idTheMuon; }
 
-  int GetTuoi() { return this->tuoi; }
-  string GetTen() { return this->ten; }
-  string GetDiaChi() { return this->diaChi; }
+  int GetTuoi() const { return this->tuoi; }
+  string GetTen() const { return this->ten; }
+  string GetDiaChi() const { return this->diaChi; }
+  int GetIdTheMuon() const { return this->idTheMuon; }
 
-  void docGiaDangNhap(vector<DangNhap> acc) {
-    string u, p;
+  /**
+   * @brief đăng nhâp của độc giả.
+   *
+   * @param acc danh sách các account có trong hệ thống.
+   * @return int id của độc giả đã đăng nhập.
+   */
+  int docGiaDangNhap(vector<DangNhap> acc) {
+    string u, p, m;
     cout << "\n=========================== DANG NHAP ===========================\n";
     cout << setw(30) << right << "Username: ";
     getline(cin, u);
@@ -33,6 +43,7 @@ public:
 
     for (int i = 0;i < acc.size();i++) {
       if (strcmp(acc.at(i).getUsername().c_str(), u.c_str()) == 0 && strcmp(acc.at(i).getPassword().c_str(), p.c_str()) == 0) {
+        m = acc.at(i).GetId();
         run = false;
         cout << "true" << endl;
       }
@@ -59,11 +70,16 @@ public:
     }
     this->setUsername(u);
     this->setPassword(p);
+    this->setId(convertToInt(m));
     cout << "Dang nhap thanh cong" << endl;
     system("pause");
     system("cls");
+    return this->id;
   }
-
+  /**
+   * @brief cập nhật thông tin cho độc giả hiện tại.
+   *
+   */
   void updateThongTin() {
     int chon;
     do {
@@ -106,8 +122,44 @@ public:
     system("pause");
     system("cls");
   }
-
+  /**
+   * @brief lưu độc giả hiện tại ra file.
+   *
+   * @param f luồng đọc ghi của file docGia.txt
+   */
   void luu(fstream& f) {
-    f << DangNhap::GetId() << endl << this->ten << endl << this->diaChi << endl << this->tuoi << endl;
+    f << DangNhap::GetId() << endl << this->ten << endl << this->diaChi << endl << this->tuoi << endl << this->idTheMuon << endl;
+  }
+
+  friend std::ostream& operator<<(std::ostream& os, const DocGia& o) {
+    // Code to write the object to the output stream
+    os << o.GetId() << " | " << o.getUsername() << " | " << o.getPassword() << " | " << o.GetTen() << " | " << o.GetTuoi() << " | " << o.GetDiaChi() << endl;
+    return os;
+  }
+
+  /**
+   * @brief lấy danh sách các độc giả có trong hệ thống.
+   *
+   * @param f luồng đọc ghi của file docGia.txt
+   * @return vector<DocGia> danh sách động các độc giả có trong hệ thống.
+   */
+  static vector<DocGia> dsDocGia(fstream& f) {
+    vector<DocGia> res;
+    while (!f.eof()) {
+      DocGia tg;
+      string tem;
+      getline(f, tem);
+      tg.setId(convertToInt(tem));
+      getline(f, tem);
+      tg.setTen(tem);
+      getline(f, tem);
+      tg.setDiaChi(tem);
+      getline(f, tem);
+      tg.setTuoi(convertToInt(tem));
+      getline(f, tem);
+      tg.setIdTheMuon(convertToInt(tem));
+      res.push_back(tg);
+    }
+    return res;
   }
 };
