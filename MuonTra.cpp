@@ -4,7 +4,6 @@
 #include "DocGia.cpp"
 /**
  * @brief bản ghi: thẻ mượn
- *
  */
 class Record {
 private:

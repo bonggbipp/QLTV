@@ -32,6 +32,7 @@ public:
    * @return int id của độc giả đã đăng nhập.
    */
   int docGiaDangNhap(vector<DangNhap> acc) {
+    cin.ignore();
     string u, p, m;
     cout << "\n=========================== DANG NHAP ===========================\n";
     cout << setw(30) << right << "Username: ";
@@ -74,7 +75,7 @@ public:
     cout << "Dang nhap thanh cong" << endl;
     system("pause");
     system("cls");
-    return this->id;
+    return this->GetId();
   }
   /**
    * @brief cập nhật thông tin cho độc giả hiện tại.

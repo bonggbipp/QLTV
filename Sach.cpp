@@ -105,4 +105,16 @@ public:
 
     return -1;
   }
+
+  friend istream& operator>>(istream& is, Sach& s) {
+    cout << "Nhap ten sach: ";
+    getline(is, s.tenSach);
+    cout << "Nhap ten tac gia: ";
+    getline(is, s.tenTacGia);
+    cout << "Nhap So trang: ";
+    cin >> s.soTrang;
+    cout << "Nhap Nam xuat ban: ";
+    is >> s.namXuatBan;
+    return is;
+  }
 };

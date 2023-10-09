@@ -107,6 +107,7 @@ public:
    * @return int id của account đó nếu có | -1 nếu không đăng nhập thanh công.
    */
   int AdminDangNhap(vector<DangNhap> acc) {
+    cin.ignore();
     string u, p, m;
     cout << "\n=========================== DANG NHAP ===========================\n";
     cout << setw(30) << right << "Username: ";
@@ -246,7 +247,7 @@ public:
    *
    * @param sachs danh sách các sách có trong hệ thống.
    */
-  void themSach(vector<Sach> sachs) {
+  void themSach(vector<Sach>& sachs) {
     cout << "\n================== THEM SACH MOI =============================\n";
     cout << "nhap so luong ban muon them: ";
     int sl;
@@ -319,18 +320,22 @@ public:
    * @brief đăng ký độc giả mới.
    *
    * @param docGias danh sách các độc giả.
+   * @param dn danh sách account
    */
-  void themDocGia(vector<DocGia> docGias) {
+  void themDocGia(vector<DocGia>& docGias, vector<DangNhap>& dn) {
+    cin.ignore();
     int soLuong;
     cout << "\n================ THEM DOC GIA MOI ==================\n";
     cout << "nhap so luong doc gia them moi:";
     cin >> soLuong;
     for (int i = 0;i < soLuong;i++) {
       DocGia docGiaMoi;
+      DangNhap d;
       string tem;
       int tem2;
       cout << "\n=============== NHAP THONG TIN ===================\n";
       cout << "Nhap ten: ";
+      cin.ignore();
       getline(cin, tem);
       docGiaMoi.setTen(tem);
       cout << "Nhap dia chi: ";
@@ -339,15 +344,20 @@ public:
       cout << "Nhap tuoi: ";
       // getline(cin, tem);
       cin >> tem2;
+      cin.ignore();
       docGiaMoi.setTuoi(tem2);
       cout << "Nhap UserName: ";
       getline(cin, tem);
+      d.setUsername(tem);
       docGiaMoi.setUsername(tem);
       cout << "Nhap password: ";
       getline(cin, tem);
+      d.setPassword(tem);
       docGiaMoi.setPassword(tem);
-      docGiaMoi.setId(docGias.size());
+      d.setId(dn.size());
+      docGiaMoi.setId(dn.size());
       docGias.push_back(docGiaMoi);
+      dn.push_back(d);
       cout << "\n========== THEM THANH CONG ==========\n";
       system("pause");
       system("cls");
