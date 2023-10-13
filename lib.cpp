@@ -17,7 +17,7 @@ bool operator==(const string& str, const string& sub_str) {
  *
  * @param str chuỗi thứ nhất
  * @param sub_str chuỗi thứ 2
- * @return true nếu 2 str trùng với sub_str |
+ * @returns true nếu 2 str trùng với sub_str |
  * @return false nếu 2  str khác nhau sub_str
  */
 bool contains(const string& str, const string& sub_str) {
@@ -42,7 +42,7 @@ class Date {
 private:
   int d, m, y;
 public:
-  Date() {}
+  Date() { d = m = y = -1; }
   Date(int d, int m, int y) { this->d = d;this->m = m;this->y = y; }
   ~Date() {}
   void setNgay(int d, int m, int y) {
@@ -52,6 +52,7 @@ public:
   }
   string xuat() const {
     string res = "";
+    if (d < 0) return "--/--/----";
     res += to_string(d);
     res += "/";
     res += to_string(m);
@@ -61,16 +62,24 @@ public:
   }
 
   void nhapNgay() {
-    cout << setw(30) << right << "Nhap Ngay: ";
-    cin >> this->d;
-    cout << setw(30) << right << "Nhap Thang: ";
-    cin >> this->m;
-    cout << setw(30) << right << "Nhap nam: ";
-    cin >> this->y;
+    cout << "Nhap Ngay (DD/MM/YYYY): ";
+    cin.ignore();
+    string s;
+    getline(cin, s);
+    stringstream ss(s);
+    ss >> this->d;
+    ss >> c;
+    ss >> this->m;
+    ss >> c;
+    ss >> this->y;
   }
   void setNgay(int val) { this->d = val; }
   void setThang(int val) { this->m = val; }
   void setNam(int val) { this->y = val; }
+
+  int getNgay() const { return d; }
+  int getThang() const { return m; }
+  int getNam() const { return y; }
 
   void nhapNgay(fstream& f) {
     string tem;

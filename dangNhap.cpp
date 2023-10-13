@@ -22,7 +22,7 @@ public:
   void setUsername(string username) { this->username = username; }
   void setPassword(string password) { this->password = password; }
 
-  int GetId() const { return this->id; }
+  int getId() const { return this->id; }
   string getUsername() const { return this->username; }
   string getPassword() const { return this->password; }
 
@@ -61,7 +61,7 @@ public:
   /* chat GPT */
   friend std::ostream& operator<<(std::ostream& os, const DangNhap& o) {
     // Code to write the object to the output stream
-    os << "account: " << o.GetId() << " | " << o.getUsername() << " | " << o.getPassword() << endl;
+    os << "account: " << o.getId() << " | " << o.getUsername() << " | " << o.getPassword() << endl;
     return os;
   }
 };

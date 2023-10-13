@@ -20,10 +20,10 @@ public:
   void setTuoi(int tuoi) { this->tuoi = tuoi; }
   void setIdTheMuon(int idTheMuon) { this->idTheMuon = idTheMuon; }
 
-  int GetTuoi() const { return this->tuoi; }
-  string GetTen() const { return this->ten; }
-  string GetDiaChi() const { return this->diaChi; }
-  int GetIdTheMuon() const { return this->idTheMuon; }
+  int getTuoi() const { return this->tuoi; }
+  string getTen() const { return this->ten; }
+  string getDiaChi() const { return this->diaChi; }
+  int getIdTheMuon() const { return this->idTheMuon; }
 
   /**
    * @brief đăng nhâp của độc giả.
@@ -31,51 +31,49 @@ public:
    * @param acc danh sách các account có trong hệ thống.
    * @return int id của độc giả đã đăng nhập.
    */
-  int docGiaDangNhap(vector<DangNhap> acc) {
+  int docGiaDangNhap(vector<DangNhap> acc, vector<DocGia> dg) {
     cin.ignore();
     string u, p, m;
-    cout << "\n=========================== DANG NHAP ===========================\n";
-    cout << setw(30) << right << "Username: ";
-    getline(cin, u);
-    cout << setw(30) << right << "Password: ";
-    getline(cin, p);
-
     bool run = true;
-
-    for (int i = 0;i < acc.size();i++) {
-      if (strcmp(acc.at(i).getUsername().c_str(), u.c_str()) == 0 && strcmp(acc.at(i).getPassword().c_str(), p.c_str()) == 0) {
-        m = acc.at(i).GetId();
-        run = false;
-        cout << "true" << endl;
-      }
-    }
-    while (run) {
-      for (int i = 0;i < acc.size();i++) {
-        if (strcmp(acc.at(i).getUsername().c_str(), u.c_str()) == 0 && strcmp(acc.at(i).getPassword().c_str(), p.c_str()) == 0) {
-          run = false;
-          break;
-        }
-      }
-      if (!run) break;
-      cout << "Ban da nhap sai Username hoac Password" << endl;
-      system("pause");
-      system("cls");
-      cout << "Xin moi nhap lai" << endl;
-      system("pause");
-      system("cls");
-      cout << "\n" << "=========================== DANG NHAP =========================== " << "\n";
+    do {
+      cout << "\n=========================== DANG NHAP ===========================\n";
       cout << setw(30) << right << "Username: ";
       getline(cin, u);
       cout << setw(30) << right << "Password: ";
       getline(cin, p);
-    }
+
+      for (int i = 0;i < acc.size();i++) {
+        if (strcmp(acc.at(i).getUsername().c_str(), u.c_str()) == 0 && strcmp(acc.at(i).getPassword().c_str(), p.c_str()) == 0) {
+          for (DocGia d : dg) {
+            if (d.getId() == acc[i].getId()) {
+              m = acc.at(i).getId();
+              this->setDiaChi(d.getDiaChi());
+              this->setId(d.getId());
+              this->setIdTheMuon(d.getIdTheMuon());
+              this->setTen(d.getTen());
+              this->setTuoi(d.getTuoi());
+              run = false;
+            }
+          }
+        }
+      }
+      if (run) {
+        cout << "Ban da nhap sai Username hoac Password" << endl;
+        system("pause");
+        system("cls");
+        cout << "Xin moi nhap lai" << endl;
+        system("pause");
+        system("cls");
+      }
+    } while (run);
+
     this->setUsername(u);
     this->setPassword(p);
     this->setId(convertToInt(m));
     cout << "Dang nhap thanh cong" << endl;
     system("pause");
     system("cls");
-    return this->GetId();
+    return this->getId();
   }
   /**
    * @brief cập nhật thông tin cho độc giả hiện tại.
@@ -129,12 +127,12 @@ public:
    * @param f luồng đọc ghi của file docGia.txt
    */
   void luu(fstream& f) {
-    f << DangNhap::GetId() << endl << this->ten << endl << this->diaChi << endl << this->tuoi << endl << this->idTheMuon;
+    f << DangNhap::getId() << endl << this->ten << endl << this->diaChi << endl << this->tuoi << endl << this->idTheMuon;
   }
 
   friend std::ostream& operator<<(std::ostream& os, const DocGia& o) {
     // Code to write the object to the output stream
-    os << o.GetId() << " | " << o.getUsername() << " | " << o.getPassword() << " | " << o.GetTen() << " | " << o.GetTuoi() << " | " << o.GetDiaChi() << endl;
+    os << o.getId() << " | " << o.getUsername() << " | " << o.getPassword() << " | " << o.getTen() << " | " << o.getTuoi() << " | " << o.getDiaChi() << endl;
     return os;
   }
 

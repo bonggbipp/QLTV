@@ -1,14 +1,12 @@
 #pragma once
 #include "lib.cpp"
-
-class ThongKe
-{
-private:
-  Record* record;
+#include "DocGia.cpp"
+class ThongKe {
 public:
-  ThongKe() {
+  static void thongKeTheoNgay() {
+  }
+  static void thongKeTheoNguoiMuon() {
 
   }
-  ~ThongKe() { delete[] this->record }
 };
 

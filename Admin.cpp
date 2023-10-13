@@ -4,7 +4,7 @@
 #include "DocGia.cpp"
 /**
  * Nhan vien
- * class ther hien nhan vien.
+ * class the hien nhan vien.
  * the hien nhung vc nhan vien co the lm.
  */
 class Admin : public DangNhap {
@@ -79,7 +79,7 @@ public:
    * @param f luong doc ghi cua file admin.txt
    */
   void luu(fstream& f) {
-    f << DangNhap::GetId() << endl << this->ten;
+    f << DangNhap::getId() << endl << this->ten;
   }
   /**
    * @brief hàm tĩnh để lấy danh sách các Admin có trong hệ thống.
@@ -112,59 +112,40 @@ public:
     cin.ignore();
     string u, p;
     int m;
-    cout << "\n=========================== DANG NHAP ===========================\n";
-    cout << setw(30) << right << "Username: ";
-    getline(cin, u);
-    cout << setw(30) << right << "Password: ";
-    getline(cin, p);
-
     bool run = true;
-
-    for (int i = 0;i < acc.size();i++) {
-      /**Hàm strcmp() là một hàm dùng để so sánh hai chuỗi. Hàm này sẽ so sánh từng ký tự của hai chuỗi từ đầu đến cuối. Nếu hai chuỗi giống nhau, hàm sẽ trả về giá trị 0. Nếu chuỗi đầu tiên lớn hơn chuỗi thứ hai, hàm sẽ trả về giá trị âm. Nếu chuỗi đầu tiên nhỏ hơn chuỗi thứ hai, hàm sẽ trả về giá trị dương. */
-      if (strcmp(acc.at(i).getUsername().c_str(), u.c_str()) == 0 && strcmp(acc.at(i).getPassword().c_str(), p.c_str()) == 0) {
-        for (Admin a : ads) {
-          if (a.GetId() == acc[i].GetId()) {
-            run = false;
-            m = acc.at(i).GetId();
-            this->setUsername(u);
-            this->setPassword(p);
-            this->setId(acc.at(i).GetId());
-            this->setTen(a.getTen());
-            break;
-          }
-        }
-      }
-    }
-    while (run) {
-      for (int i = 0;i < acc.size();i++) {
-        if (strcmp(acc.at(i).getUsername().c_str(), u.c_str()) == 0 && strcmp(acc.at(i).getPassword().c_str(), p.c_str()) == 0) {
-          for (Admin a : ads) {
-            if (a.GetId() == acc[i].GetId()) {
-              run = false;this->setUsername(u);
-              this->setPassword(p);
-              this->setId(acc.at(i).GetId());
-              this->setTen(a.getTen());
-              break;
-            }
-          }
-
-        }
-      }
-      if (!run) break;
-      cout << "Ban da nhap sai Username hoac Password" << endl;
-      system("pause");
-      system("cls");
-      cout << "Xin moi nhap lai" << endl;
-      system("pause");
-      system("cls");
-      cout << "\n" << "=========================== DANG NHAP =========================== " << "\n";
+    do {
+      cout << "\n=========================== DANG NHAP ===========================\n";
       cout << setw(30) << right << "Username: ";
       getline(cin, u);
       cout << setw(30) << right << "Password: ";
       getline(cin, p);
-    }
+      /** Kiem tra dang nhap */
+      for (int i = 0;i < acc.size();i++) {
+        /**Hàm strcmp() là một hàm dùng để so sánh hai chuỗi. Hàm này sẽ so sánh từng ký tự của hai chuỗi từ đầu đến cuối. Nếu hai chuỗi giống nhau, hàm sẽ trả về giá trị 0. Nếu chuỗi đầu tiên lớn hơn chuỗi thứ hai, hàm sẽ trả về giá trị âm. Nếu chuỗi đầu tiên nhỏ hơn chuỗi thứ hai, hàm sẽ trả về giá trị dương. */
+        if (strcmp(acc.at(i).getUsername().c_str(), u.c_str()) == 0 && strcmp(acc.at(i).getPassword().c_str(), p.c_str()) == 0) {
+          for (Admin a : ads) {
+            if (a.getId() == acc[i].getId()) {
+              run = false;
+              m = acc.at(i).getId();
+              this->setUsername(u);
+              this->setPassword(p);
+              this->setId(acc.at(i).getId());
+              this->setTen(a.getTen());
+              break;
+            }
+          }
+        }
+      }
 
+      if (run) {
+        cout << "Ban da nhap sai Username hoac Password" << endl;
+        system("pause");
+        system("cls");
+        cout << "Xin moi nhap lai" << endl;
+        system("pause");
+        system("cls");
+      }
+    } while (run);
     cout << "Dang nhap thanh cong" << endl;
     system("pause");
     system("cls");
@@ -216,7 +197,7 @@ public:
     do {
       system("cls");
       cout << "\n=========================== CAP NHAT THONG TIN DOC GIA ===========================\n";
-      cout << "Cap nhat thong tin cho Doc gia: " << docGia[id].GetTen() << endl;
+      cout << "Cap nhat thong tin cho Doc gia: " << docGia[id].getTen() << endl;
       cout << "1. Thay doi ten\n";
       cout << "2. Thay doi tuoi\n";
       cout << "3. Thay doi dia chi\n";
@@ -231,7 +212,7 @@ public:
     switch (chon) {
     case 1:
       cout << "\n=========================== CAP NHAT TEN ===========================\n";
-      cout << "Ten cua ban: " << docGia[id].GetTen() << endl;
+      cout << "Ten cua ban: " << docGia[id].getTen() << endl;
       cout << "Nhap Ten moi: ";
       cin.ignore();
 
@@ -240,7 +221,7 @@ public:
       break;
     case 2:
       cout << "\n=========================== CAP NHAT TUOI ===========================\n";
-      cout << "Tuoi cua ban: " << docGia[id].GetTuoi() << endl;
+      cout << "Tuoi cua ban: " << docGia[id].getTuoi() << endl;
       cout << "Nhap Tuoi moi: ";
       int tem2;
       cin >> tem2;
@@ -248,7 +229,7 @@ public:
       break;
     case 3:
       cout << "\n=========================== CAP NHAT DIA CHI ===========================\n";
-      cout << "Dia chi cua ban: " << docGia[id].GetDiaChi() << endl;
+      cout << "Dia chi cua ban: " << docGia[id].getDiaChi() << endl;
       cout << "Nhap dia chi moi: ";
       cin.ignore();
       getline(cin, tem);
@@ -343,7 +324,7 @@ public:
   void themDocGia(vector<DocGia>& docGias, vector<DangNhap>& dn) {
     cin.ignore();
     int soLuong;
-    cout << "\n================ THEM DOC GIA MOI ==================\n";
+    cout << "\n------------------THEM DOC GIA MOI---------------\n";
     cout << "nhap so luong doc gia them moi:";
     cin >> soLuong;
     for (int i = 0;i < soLuong;i++) {
@@ -351,7 +332,7 @@ public:
       DangNhap d;
       string tem;
       int tem2;
-      cout << "\n=============== NHAP THONG TIN ===================\n";
+      cout << "\n------------------NHAP THONG TIN------------------\n";
       cout << "Nhap ten: ";
       cin.ignore();
       getline(cin, tem);
@@ -360,7 +341,6 @@ public:
       getline(cin, tem);
       docGiaMoi.setDiaChi(tem);
       cout << "Nhap tuoi: ";
-      // getline(cin, tem);
       cin >> tem2;
       cin.ignore();
       docGiaMoi.setTuoi(tem2);
@@ -376,7 +356,7 @@ public:
       docGiaMoi.setId(dn.size());
       docGias.push_back(docGiaMoi);
       dn.push_back(d);
-      cout << "\n========== THEM THANH CONG ==========\n";
+      cout << "\n------------THEM THANH CONG------------------\n";
       system("pause");
       system("cls");
     }

@@ -89,7 +89,7 @@ public:
 
   /** truy van sach*/
   static int timKiem(vector<Sach>& sach) {
-    cout << "\n========================= TRUY VAN SACH =========================\n";
+    cout << "\n--------------------------TRUY VAN SACH--------------------------\n";
     string tv;
     cout << "Nhap ten sach ban muon tim: ";
     getline(cin, tv);
