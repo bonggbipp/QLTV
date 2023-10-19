@@ -73,7 +73,9 @@ public:
   friend ostream& operator<<(ostream& os, const Record& r) {
     os << r.getId() << endl;
     os << r.getTenSach() << endl;
+    os << r.getIdSach() << endl;
     os << r.getNguoiMuon() << endl;
+    os << r.getIdNguoiMuon() << endl;
     os << r.getNgayMuon() << endl;
     os << r.getNgayTra() << endl;
     os << (r.getDaTra() ? 1 : 0);
@@ -108,12 +110,13 @@ public:
     Date ngayMuon, ngayTra;
     ngayMuon.nhapNgay();
     Record r;
-    r.setId(dsMT.size() - 1);
+    r.setId(dsMT.size());
     r.setIdSach(sach.getMSS());
     r.setNgayMuon(ngayMuon);
     r.setTenSach(sach.getTenSach());
     r.setNguoiMuon(dg.getTen());
     r.setIdNguoiMuon(dg.getId());
+    dg.setIdTheMuon(r.getId());
     r.update(false);
     dsMT.push_back(r);
     return r.getId();
@@ -141,7 +144,7 @@ public:
   }
 
   static void hienThiDSTheMuon(const vector<Record>& dsMT) {
-    system("cls");
+    // system("cls");
     cout << "\n----------------------------DANH SACH CAC THE MUON-----------------------------\n";
     cout << " | " << setw(10) << left << "id";
     cout << " | " << setw(25) << left << "Ten sach";
@@ -160,8 +163,6 @@ public:
       cout << " | " << endl;
     }
     cout << "\n-----------------------------------------------------------------------------\n";
-    system("pause");
-    system("cls");
     return;
   }
 

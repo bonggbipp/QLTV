@@ -4,9 +4,9 @@
 #include <sstream>
 using namespace std;
 
-void reset(fstream* f[], size_t n) {
+void reset(fstream f[], size_t n) {
   for (size_t i = 0; i < n; i++) {
-    f[i]->seekg(0, ios::beg);
+    f[i].seekg(0, ios::beg);
   }
 }
 bool operator==(const string& str, const string& sub_str) {
@@ -18,7 +18,7 @@ bool operator==(const string& str, const string& sub_str) {
  * @param str chuỗi thứ nhất
  * @param sub_str chuỗi thứ 2
  * @returns true nếu 2 str trùng với sub_str |
- * @return false nếu 2  str khác nhau sub_str
+ * @return false nếu 2 str khác nhau sub_str
  */
 bool contains(const string& str, const string& sub_str) {
   return str == sub_str;
@@ -66,6 +66,7 @@ public:
     cin.ignore();
     string s;
     getline(cin, s);
+    char c;
     stringstream ss(s);
     ss >> this->d;
     ss >> c;
@@ -104,6 +105,12 @@ public:
   friend istream& operator>>(istream& is, Date& d) {
     string tem;
     getline(is, tem);
+    if (tem[0] == '-') {
+      d.setNgay(-1);
+      d.setThang(-1);
+      d.setNam(-1);
+      return;
+    }
     stringstream ss(tem);
     int n;
     char c;

@@ -2,19 +2,13 @@
 #include "DocGia.cpp"
 #include "Sach.cpp"
 #include "MuonTra.cpp"
-#include "lib.cpp"
+#include "ThongKe.cpp"
 
-#define RESET reset(fs, 5)
+#define RESET(f) reset(f, 5)
 
 
 int main() {
-  fstream userFile;
-  fstream bookFile;
-  fstream muonFile;
-  fstream dgFile;
-  fstream adminFile;
-
-  fstream* fs[5] = { &userFile, &bookFile, &adminFile, &dgFile, &muonFile };
+  fstream file[5];
 
   vector<Sach> books;
   vector<DangNhap> users;
@@ -22,21 +16,19 @@ int main() {
   vector<Admin> admins;
   vector<Record> muonTra;
 
-  MuonTra mt;
+  file[0].open("./db/user.txt", ios::in | ios::out);
+  file[1].open("./db/book.txt", ios::in | ios::out);
+  file[2].open("./db/admin.txt", ios::in | ios::out);
+  file[3].open("./db/docGia.txt", ios::in | ios::out);
+  file[4].open("./db/muon.txt", ios::in | ios::out);
 
-  userFile.open("./db/user.txt", ios::in | ios::out);
-  bookFile.open("./db/book.txt", ios::in | ios::out);
-  adminFile.open("./db/admin.txt", ios::in | ios::out);
-  dgFile.open("./db/docGia.txt", ios::in | ios::out);
-  muonFile.open("./db/muon.txt", ios::in | ios::out);
+  RESET(file);
 
-  RESET;
-
-  users = DangNhap::dsTaiKhoan(userFile);
-  books = Sach::dsSach(bookFile);
-  admins = Admin::dsAdmin(adminFile);
-  docGias = DocGia::dsDocGia(dgFile);
-  muonTra = MuonTra::dsMT(muonFile);
+  users = DangNhap::dsTaiKhoan(file[0]);
+  books = Sach::dsSach(file[1]);
+  admins = Admin::dsAdmin(file[2]);
+  docGias = DocGia::dsDocGia(file[3]);
+  muonTra = MuonTra::dsMT(file[4]);
 
   /*****************************************************/
 
@@ -69,6 +61,7 @@ int main() {
         cout << "3. Lay thong tin doc gia\n";
         cout << "4. Them doc gia\n";
         cout << "5. Hien thi thong tin cac the muon.\n";
+        cout << "6. Thong Ke.\n";
         cout << "0. Thoat\n";
         cout << "lua chon cua ban la: ";
         cin >> achon;
@@ -126,8 +119,46 @@ int main() {
           a.themDocGia(docGias, users);
           break;
         case '5':
+          system("cls");
           MuonTra::hienThiDSTheMuon(muonTra);
+          system("pause");
+          system("cls");
           break;
+        case '6':
+        {
+          system("cls");
+          char t;
+          bool tkRun = true;
+          while (tkRun) {
+            cout << "\n------------------------ THONG KE --------------------------\n";
+            cout << "1. Thong ke theo nguoi.\n";
+            cout << "2. Thong ke theo Ngay muon.\n";
+            cout << "3. Thong ke theo Ngay Tra.\n";
+            cout << "0. Thoat.\n";
+            cout << "Lua chon cua ban la: ";
+            cin >> t;
+            switch (t) {
+            case '0':
+              tkRun = false;
+              system("cls");
+              break;
+            case '1':
+              ThongKe::thongKeTheoNguoiMuon(muonTra);
+              break;
+            case '2':
+              ThongKe::thongKeTheoThang(muonTra);
+              break;
+            case '3':
+              ThongKe::thongKeTheoThang(muonTra, false);
+              break;
+            default:
+              cout << "Vui long nhap lai.";
+              system("pause");
+              system("cls");
+            }
+          }
+        }
+        break;
         case '0':
           aRun = false;
           break;
@@ -216,7 +247,6 @@ int main() {
             if (mss >= 0) {
               for (Sach s : books) {
                 if (s.getMSS() == mss) {
-                  d.setIdTheMuon(mss);
                   MuonTra::muon(s, d, muonTra);
                   break;
                 }
@@ -233,12 +263,8 @@ int main() {
           system("cls");
           cout << "\n-------------------- TRA SACH ----------------------------\n";
           if (d.getIdTheMuon() >= 0) {
-            for (Record r : muonTra) {
-              if (r.getId() == d.getIdTheMuon()) {
-                MuonTra::tra(r.getId(), muonTra);
-                cout << "Tra sach thanh cong\n";
-              }
-            }
+            MuonTra::tra(d.getIdTheMuon(), muonTra);
+            cout << "Tra sach thanh cong\n";
           }
           else {
             cout << "Ban khong muon sach nao ca\n";
@@ -268,38 +294,34 @@ int main() {
     }
   }
   /*****************************************************/
-  RESET;
+  RESET(file);
   // muon tra
-  mt.luu(muonFile, muonTra);
+  MuonTra::luu(file[4], muonTra);
   // user
   for (int i = 0;i < users.size() - 1;i++) {
-    users[i].luu(userFile);
-    userFile << endl;
+    users[i].luu(file[0]);
+    file[0] << endl;
   }
-  users[users.size() - 1].luu(userFile);
+  users[users.size() - 1].luu(file[0]);
   // Sach
   for (int i = 0; i < books.size() - 1; i++) {
-    books[i].luu(bookFile);
-    bookFile << endl;
+    books[i].luu(file[1]);
+    file[1] << endl;
   }
-  books[books.size() - 1].luu(bookFile);
+  books[books.size() - 1].luu(file[1]);
   // Admin
   for (int i = 0; i < admins.size() - 1; i++) {
-    admins[i].luu(adminFile);
-    adminFile << endl;
+    admins[i].luu(file[2]);
+    file[2] << endl;
   }
-  admins[admins.size() - 1].luu(adminFile);
+  admins[admins.size() - 1].luu(file[2]);
   // DocGia
   for (int i = 0; i < docGias.size() - 1; i++) {
-    docGias[i].luu(dgFile);
-    dgFile << endl;
+    docGias[i].luu(file[3]);
+    file[3] << endl;
   }
-  docGias[docGias.size() - 1].luu(dgFile);
+  docGias[docGias.size() - 1].luu(file[3]);
 
-  userFile.close();
-  bookFile.close();
-  adminFile.close();
-  dgFile.close();
-  muonFile.close();
+  for (size_t i = 0;i < 5;i++) file[i].close();
   return 0;
 }
