@@ -5,39 +5,35 @@
 
 class ThongKe {
 public:
-  static void thongKeTheoThang(const vector<Record>& ds, bool mt = true) {
+  static void thongKeTheoThang(const vector<Record>& ds, bool m = true) {
     system("cls");
     // nam / vector<thang / vector>
     set<int> nam; // list danh sach cac nam;
     vector<pair<int, vector<int>*>> res; /// mangr chua nam vaf mangr thang 
     for (Record r : ds) {
-      if (mt)
+      if (m)
         nam.insert(r.getNgayMuon().getNam());
-      else {
-        if (r.getDaTra())
-          nam.insert(r.getNgayTra().getNam());
+      else if (r.getDaTra()) {
+        nam.insert(r.getNgayTra().getNam());
       }
     }
     for (int n : nam) {
       vector<int>* d = new vector<int>[13];
       for (int i = 0;i < ds.size();i++) {
         // d[ds[i].getNgayMuon().getThang()]->v.push_back(i);
-        if (mt) {
+        if (m) {
           if (ds[i].getNgayMuon().getNam() == n)
             d[ds[i].getNgayMuon().getThang()].push_back(i);
         }
-        else {
-          if (ds[i].getDaTra() && ds[i].getNgayTra().getNam() == n) {
-            d[ds[i].getNgayTra().getThang()].push_back(i);
-
-          }
+        else if (ds[i].getDaTra() && ds[i].getNgayTra().getNam() == n) {
+          d[ds[i].getNgayTra().getThang()].push_back(i);
         }
       }
       res.push_back(make_pair(n, d));
     }
 
     /***************************************************/
-    cout << "\n----------------------- THONG KE THEO NGAY " << mt ? "MUON" : "TRA" << " ----------------------------\n";
+    cout << "\n----------------------- THONG KE THEO NGAY " << m ? "MUON" : "TRA" << " ----------------------------\n";
     for (int n : nam) {
       cout << "nam: " << n << endl;
       for (pair<int, vector<int>*> e : res) {

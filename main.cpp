@@ -36,7 +36,7 @@ int main() {
   while (run)
   {
     char chon;
-    cout << "\n==========================================\n";
+    cout << "\n-------------------------------------------\n";
     cout << "Chon chuc nang ban muon chay:\n";
     cout << "1. Admin dang nhap\n";
     cout << "2. Doc gia dang nhap\n";
@@ -53,7 +53,7 @@ int main() {
       bool aRun = true;
       char achon;
       while (aRun) {
-        cout << "\n================ ADMIN ======================\n";
+        cout << "\n--------------------- ADMIN ----------------------\n";
         cout << "Ten Admin: " << a.getTen() << endl;
         cout << "Cac chuc nang: \n";
         cout << "1. Lay thong tin sach\n";
@@ -69,7 +69,7 @@ int main() {
         case '1':
         {
           system("cls");
-          cout << "\n======== LAY THONG TIN SACH ========\n";
+          cout << "\n--------------------- LAY THONG TIN SACH --------------------- \n";
           cout << setw(10) << left << "id";
           cout << setw(25) << left << "Ten sach";
           cout << setw(25) << left << "Tac gia";
@@ -96,7 +96,7 @@ int main() {
         break;
         case '3':
         {
-          cout << "\n=================== THONG TIN DOC GIA ====================\n";
+          cout << "\n--------------------- THONG TIN DOC GIA --------------------- \n";
           cout << setw(10) << left << "id";
           cout << setw(25) << left << "Ten";
           cout << setw(10) << left << "Tuoi";
@@ -178,7 +178,7 @@ int main() {
       bool dRun = true;
       while (dRun)
       {
-        cout << "\n============== DOC GIA ===================\n";
+        cout << "\n--------------------- DOC GIA --------------------- \n";
         cout << "Cac chuc nang: \n";
         cout << "1. Xem thong tin ca nhan\n";
         cout << "2. Xem thong tin sach\n";
@@ -197,7 +197,7 @@ int main() {
         case '1':
         {
           system("cls");
-          cout << "\n============== DOC GIA ===================\n";
+          cout << "\n--------------------- DOC GIA --------------------- \n";
           cout << setw(10) << left << "id";
           cout << setw(25) << left << "Ten";
           cout << setw(10) << left << "Tuoi";
@@ -215,7 +215,7 @@ int main() {
         case '2':
         {
           system("cls");
-          cout << "\n======== LAY THONG TIN SACH ========\n";
+          cout << "\n--------------------- LAY THONG TIN SACH --------------------- \n";
           cout << setw(10) << left << "id";
           cout << setw(25) << left << "Ten sach";
           cout << setw(25) << left << "Tac gia";
@@ -236,8 +236,8 @@ int main() {
         break;
         case '3':
         {
-          cout << "\n=============== MUON SACH ===================\n";
-          if (d.getIdTheMuon() < 0) {
+          cout << "\n--------------------- MUON SACH --------------------- \n";
+          if (d.getIdTheMuon() >= 0) {
             cout << "Ban dang muon sach!\nVui long tra trc khi muon.\n";
             system("pause");
             system("cls");
@@ -255,7 +255,7 @@ int main() {
               system("pause");
             }
             system("cls");
-          }
+          }0
         }
         break;
         case '4':
@@ -264,6 +264,7 @@ int main() {
           cout << "\n-------------------- TRA SACH ----------------------------\n";
           if (d.getIdTheMuon() >= 0) {
             MuonTra::tra(d.getIdTheMuon(), muonTra);
+            d.setIdTheMuon(-1);
             cout << "Tra sach thanh cong\n";
           }
           else {
@@ -284,7 +285,7 @@ int main() {
     case '0':
       run = false;
       system("cls");
-      cout << "cam on bn su dung ung dung.\nTam biet\n";
+      cout << "cam on ban su dung ung dung.\nTam biet\n";
       system("pause");
       break;
     default:

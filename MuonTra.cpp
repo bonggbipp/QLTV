@@ -107,7 +107,7 @@ public:
 
   static int muon(Sach sach, DocGia& dg, vector<Record>& dsMT) {
     cout << "Nhap Ngay muon:\n";
-    Date ngayMuon, ngayTra;
+    Date ngayMuon;
     ngayMuon.nhapNgay();
     Record r;
     r.setId(dsMT.size());
@@ -116,8 +116,8 @@ public:
     r.setTenSach(sach.getTenSach());
     r.setNguoiMuon(dg.getTen());
     r.setIdNguoiMuon(dg.getId());
-    dg.setIdTheMuon(r.getId());
     r.update(false);
+    dg.setIdTheMuon(r.getId());
     dsMT.push_back(r);
     return r.getId();
   }
