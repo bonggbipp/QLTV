@@ -109,7 +109,7 @@ public:
       d.setNgay(-1);
       d.setThang(-1);
       d.setNam(-1);
-      return;
+      return is;
     }
     stringstream ss(tem);
     int n;

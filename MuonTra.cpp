@@ -93,8 +93,6 @@ private:
   // vector<Record> dsMT;
 public:
 
-  MuonTra() {}
-
   static vector<Record> dsMT(fstream& f) {
     vector<Record> res;
     while (!f.eof()) {
@@ -165,6 +163,5 @@ public:
     cout << "\n-----------------------------------------------------------------------------\n";
     return;
   }
-
 
 };

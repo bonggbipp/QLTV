@@ -255,7 +255,7 @@ int main() {
               system("pause");
             }
             system("cls");
-          }0
+          }
         }
         break;
         case '4':

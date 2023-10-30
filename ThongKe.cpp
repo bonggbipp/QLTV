@@ -33,7 +33,7 @@ public:
     }
 
     /***************************************************/
-    cout << "\n----------------------- THONG KE THEO NGAY " << m ? "MUON" : "TRA" << " ----------------------------\n";
+    cout << "\n----------------------- THONG KE THEO NGAY " << (m ? "MUON" : "TRA") << " ----------------------------\n";
     for (int n : nam) {
       cout << "nam: " << n << endl;
       for (pair<int, vector<int>*> e : res) {

@@ -12,20 +12,6 @@ private:
   string tenTacGia;
   int soTrang;
   int namXuatBan;
-  /**
-   * @brief tạo bản sao sách mới
-   *
-   * @return Sach bản sao của sách hiện tại.
-   */
-  Sach clone() {
-    Sach book;
-    book.setMSS(this->getMSS());
-    book.setTenSach(this->getTenSach());
-    book.setTenTacGia(this->getTenTacGia());
-    book.setSoTrang(this->getSoTrang());
-    book.setNamXuatBan(this->getNamXuatBan());
-    return book;
-  }
 
 public:
   Sach() {
@@ -78,7 +64,7 @@ public:
       getline(file, t.tenTacGia);
       getline(file, st);
       getline(file, nxb);
-      std::stringstream ss1(st), ss2(nxb), ss3(id);
+      stringstream ss1(st), ss2(nxb), ss3(id);
       ss3 >> t.mss;
       ss1 >> t.soTrang;
       ss2 >> t.namXuatBan;
@@ -112,7 +98,7 @@ public:
     cout << "Nhap ten tac gia: ";
     getline(is, s.tenTacGia);
     cout << "Nhap So trang: ";
-    cin >> s.soTrang;
+    is >> s.soTrang;
     cout << "Nhap Nam xuat ban: ";
     is >> s.namXuatBan;
     return is;
