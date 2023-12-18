@@ -49,41 +49,44 @@ int main() {
     {
       Admin a;
       system("cls");
-      cout << a.AdminDangNhap(users, admins) << endl;
+      a.AdminDangNhap(users, admins);
       bool aRun = true;
       char achon;
       while (aRun) {
-        cout << "\n--------------------- ADMIN ----------------------\n";
-        cout << "Ten Admin: " << a.getTen() << endl;
-        cout << "Cac chuc nang: \n";
-        cout << "1. Lay thong tin sach\n";
-        cout << "2. Them sach moi\n";
-        cout << "3. Lay thong tin doc gia\n";
-        cout << "4. Them doc gia\n";
-        cout << "5. Hien thi thong tin cac the muon.\n";
-        cout << "6. Thong Ke.\n";
-        cout << "0. Thoat\n";
+        cout << "\nTen Admin: " << a.getTen() << endl;
+        cout << "\n----------------------- ADMIN ------------------------\n";
+        cout << setw(53) << left << "| Cac chuc nang: " << " |\n";
+        cout << setw(53) << left << "| 1. Lay thong tin sach" << " |\n";
+        cout << setw(53) << left << "| 2. Them sach moi" << " |\n";
+        cout << setw(53) << left << "| 3. Lay thong tin doc gia" << " |\n";
+        cout << setw(53) << left << "| 4. Them doc gia" << " |\n";
+        cout << setw(53) << left << "| 5. Hien thi thong tin cac the muon." << " |\n";
+        cout << setw(53) << left << "| 6. Thong Ke." << " |\n";
+        cout << setw(53) << left << "| 0. Thoat" << " |\n";
+        cout << "-----------------------------------------------------\n";
         cout << "lua chon cua ban la: ";
         cin >> achon;
         switch (achon) {
         case '1':
         {
           system("cls");
-          cout << "\n--------------------- LAY THONG TIN SACH --------------------- \n";
-          cout << setw(10) << left << "id";
-          cout << setw(25) << left << "Ten sach";
-          cout << setw(25) << left << "Tac gia";
-          cout << setw(10) << left << "So trang";
-          cout << setw(15) << left << "Nam phat hanh";
+          cout << "\n------------------------------------- LAY THONG TIN SACH --------------------------------- \n";
+          cout << setw(10) << left << "| id" << "|";
+          cout << setw(25) << left << "Ten sach" << "|";
+          cout << setw(25) << left << "Tac gia" << "|";
+          cout << setw(10) << left << "So trang" << "|";
+          cout << setw(15) << left << "Nam phat hanh" << "|";
           cout << endl;
+          cout << "------------------------------------------------------------------------------------------\n";
           for (Sach s : books) {
-            cout << setw(10) << left << s.getMSS();
-            cout << setw(25) << left << s.getTenSach();
-            cout << setw(25) << left << s.getTenTacGia();
-            cout << setw(10) << left << s.getSoTrang();
-            cout << setw(15) << left << s.getNamXuatBan();
+            cout << "| " << setw(8) << left << s.getMSS() << "|";
+            cout << setw(25) << left << s.getTenSach() << "|";
+            cout << setw(25) << left << s.getTenTacGia() << "|";
+            cout << setw(10) << left << s.getSoTrang() << "|";
+            cout << setw(15) << left << s.getNamXuatBan() << "|";
             cout << endl;
           }
+          cout << "------------------------------------------------------------------------------------------\n";
           system("pause");
           system("cls");
         }
@@ -96,20 +99,23 @@ int main() {
         break;
         case '3':
         {
-          cout << "\n--------------------- THONG TIN DOC GIA --------------------- \n";
-          cout << setw(10) << left << "id";
-          cout << setw(25) << left << "Ten";
-          cout << setw(10) << left << "Tuoi";
-          cout << setw(25) << left << "Dia chi";
+          system("cls");
+          cout << "\n---------------------------- THONG TIN DOC GIA ---------------------------\n";
+          cout << setw(10) << left << "| id" << "|";
+          cout << setw(25) << left << "Ten" << "|";
+          cout << setw(10) << left << "Tuoi" << "|";
+          cout << setw(25) << left << "Dia chi" << "|";
           cout << endl;
+          cout << "--------------------------------------------------------------------------\n";
           // cout << setw(15) << left << "Nam phat hanh";
           for (DocGia d : docGias) {
-            cout << setw(10) << left << d.getId();
-            cout << setw(25) << left << d.getTen();
-            cout << setw(10) << left << d.getTuoi();
-            cout << setw(25) << left << d.getDiaChi();
+            cout << "| " << setw(8) << left << d.getId() << "|";
+            cout << setw(25) << left << d.getTen() << "|";
+            cout << setw(10) << left << d.getTuoi() << "|";
+            cout << setw(25) << left << d.getDiaChi() << "|";
             cout << endl;
           }
+          cout << "--------------------------------------------------------------------------\n";
           cout << "\nIn thong tin doc gia thanh cong\n";
           system("pause");
           system("cls");
@@ -131,11 +137,16 @@ int main() {
           bool tkRun = true;
           while (tkRun) {
             cout << "\n------------------------ THONG KE --------------------------\n";
-            cout << "1. Thong ke theo nguoi.\n";
-            cout << "2. Thong ke theo Ngay muon.\n";
-            cout << "3. Thong ke theo Ngay Tra.\n";
-            cout << "0. Thoat.\n";
-            cout << "Lua chon cua ban la: ";
+            cout << setw(62) << left << "| 1. Thong ke theo nguoi." << "|\n";
+            cout << setw(62) << left << "| 2. Thong ke theo Ngay muon." << "|\n";
+            cout << setw(62) << left << "| 3. Thong ke theo Ngay Tra." << "|\n";
+            cout << setw(62) << left << "| 0. Thoat." << "|\n";
+            cout.width(62);
+            cout.fill('-');
+            cout << "";
+            cout.fill(' ');
+
+            cout << "\nLua chon cua ban la: ";
             cin >> t;
             switch (t) {
             case '0':

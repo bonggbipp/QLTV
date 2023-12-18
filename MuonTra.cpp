@@ -93,6 +93,8 @@ private:
   // vector<Record> dsMT;
 public:
 
+  MuonTra() {}
+
   static vector<Record> dsMT(fstream& f) {
     vector<Record> res;
     while (!f.eof()) {
@@ -143,7 +145,7 @@ public:
 
   static void hienThiDSTheMuon(const vector<Record>& dsMT) {
     // system("cls");
-    cout << "\n----------------------------DANH SACH CAC THE MUON-----------------------------\n";
+    cout << "\n-------------------------------------------DANH SACH CAC THE MUON---------------------------------------------\n";
     cout << " | " << setw(10) << left << "id";
     cout << " | " << setw(25) << left << "Ten sach";
     cout << " | " << setw(25) << left << "Nguoi muon";
@@ -151,6 +153,8 @@ public:
     cout << " | " << setw(10) << left << "Ngay tra";
     cout << " | " << setw(10) << left << "Trang thai";
     cout << " | " << endl;
+    cout << "--------------------------------------------------------------------------------------------------------------\n";
+
     for (Record r : dsMT) {
       cout << " | " << setw(10) << left << r.getId();
       cout << " | " << setw(25) << left << r.getTenSach();
@@ -160,8 +164,9 @@ public:
       cout << " | " << setw(10) << left << (r.getDaTra() ? "da tra" : "chua tra");
       cout << " | " << endl;
     }
-    cout << "\n-----------------------------------------------------------------------------\n";
+    cout << "--------------------------------------------------------------------------------------------------------------\n";
     return;
   }
+
 
 };
